@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import {ENV} from "./config/env.js";
+import {ENV} from "./env.js";
 const app = express();
 
 const __dirname = path.resolve();
@@ -19,6 +19,6 @@ if(ENV.NODE_ENV === "production") {
   });
 }
 
-app.listen(ENV, prototype, () => {
-  console.log('Server is running on port 123');
+app.listen(ENV.PORT, () => {
+  console.log(`Server is running on port ${ENV.PORT}`);
 });
