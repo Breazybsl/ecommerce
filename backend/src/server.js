@@ -1,13 +1,23 @@
 import express from 'express';
 import path from 'path';
+import {clerkMiddleware } from '@clerk/express';
+
+import {functions, inngest } from "./config/inngest.js"
+
+import { ENV } from "./config/env.js";
+import { connectDB } from './config/db.js';
 import { clerkMiddleware } from '@clerk/nextjs/server'
 import {ENV} from "./config/env.js";
 import { connectDB } from './config/db.js';
 import { connect } from 'http2';
 const app = express();
 
+const app = express();
 const __dirname = path.resolve();
 
+app.use(clerkMiddleware());
+
+app.use("/api/inngest", serve({client:inngest, function:functions}))
 app.use(clerkMiddleware()); //add .auth onject under the req
 
 app.get('/api/health', (req, res) => {
